@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>User Management Dashboard</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', sans-serif;
+        }
+        body {
+            background-color: #f4f6f8;
+            color: #333;
+        }
+        .header, .footer {
+            background-color: #00796b;
+            text-align: center;
+            padding: 20px;
+            font-size: 1.4rem;
+            font-weight: 600;
+            color: #ffffff;
+        }
+        .container {
+            display: flex;
+            height: calc(100vh - 120px);
+        }
+        .sidebar {
+            width: 250px;
+            background: #004d40;
+            padding: 30px 20px;
+            color: white;
+            display: flex;
+            flex-direction: column;
+        }
+        .sidebar div {
+            font-weight: bold;
+            margin-bottom: 25px;
+            font-size: 1.2rem;
+        }
+        .sidebar a {
+            display: block;
+            margin: 15px 0;
+            text-decoration: none;
+            color: #b2dfdb;
+            padding: 12px 18px;
+            border-radius: 10px;
+            transition: all 0.3s ease;
+        }
+        .sidebar a:hover {
+            background-color: #26a69a;
+            color: #fff;
+        }
+        .main-content {
+            flex: 1;
+            padding: 25px;
+            background: #ffffff;
+            border-top-left-radius: 20px;
+            border-bottom-left-radius: 20px;
+            box-shadow: inset 0 0 15px rgba(0,0,0,0.05);
+        }
+        iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+            border-radius: 12px;
+            box-shadow: 0 0 12px rgba(0,0,0,0.1);
+        }
+    </style>
+</head>
+<body>
+
+    <div class="header">
+        👤 User Management Portal by Keshav Khandelwal
+    </div>
+
+    <div class="container">
+        <div class="sidebar">
+            <div>📂 Navigation</div>
+                   <a href="user-list.php" target="contentFrame">📋 View Users</a>
+                   <a href="add-user.php" target="contentFrame">➕ Add User</a>
+                   <a href="view-user.php" target="contentFrame">👁️ View User Detail</a>
+        </div>
+        <div class="main-content">
+            <iframe name="contentFrame" src="user-list.php"></iframe>
+        </div>
+    </div>
+
+    <div class="footer">
+        🚀 Powered by HTML, CSS, PHP & jQuery – 2025
+    </div>
+
+    <script>
+        // Optional: Handle edit/view buttons if needed
+        window.addEventListener("message", function(event) {
+            if (event.data.type === "navigate") {
+                document.querySelector("iframe[name='contentFrame']").src = event.data.url;
+            }
+        });
+    </script>
+
+</body>
+</html>
