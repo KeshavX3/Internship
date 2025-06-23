@@ -3,95 +3,203 @@
 <head>
     <meta charset="UTF-8">
     <title>User Management Dashboard</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap Icons -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
     <style>
-        * {
+        body {
+            font-family: 'Inter', sans-serif;
+            min-height: 100vh;
+            background: linear-gradient(135deg, #43cea2 0%, #185a9d 100%);
+            background-size: 400% 400%;
+            animation: gradientBG 15s ease infinite;
             margin: 0;
             padding: 0;
-            box-sizing: border-box;
-            font-family: 'Inter', sans-serif;
         }
-        body {
-            background-color: #f4f6f8;
-            color: #333;
+        @keyframes gradientBG {
+            0% {background-position: 0% 50%;}
+            50% {background-position: 100% 50%;}
+            100% {background-position: 0% 50%;}
         }
-        .header, .footer {
-            background-color: #00796b;
+        .header {
+            background: rgba(0,0,0,0.10);
+            color: #fff;
+            padding: 1.2rem 0 1.2rem 0;
             text-align: center;
-            padding: 20px;
-            font-size: 1.4rem;
-            font-weight: 600;
-            color: #ffffff;
+            font-weight: 700;
+            font-size: 2rem;
+            letter-spacing: 1px;
+            border-bottom: 1px solid rgba(255,255,255,0.10);
+            box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+            margin-bottom: 0;
         }
-        .container {
+        .dashboard-row {
             display: flex;
-            height: calc(100vh - 120px);
+            height: calc(100vh - 90px);
+            min-height: 600px;
+            width: 100vw;
+            margin: 0;
         }
         .sidebar {
-            width: 250px;
-            background: #004d40;
-            padding: 30px 20px;
-            color: white;
+            width: 270px;
+            min-width: 220px;
+            max-width: 320px;
+            background: rgba(0,0,0,0.13);
             display: flex;
             flex-direction: column;
+            align-items: center;
+            padding: 2.5rem 1.2rem 1.2rem 1.2rem;
+            border-top-right-radius: 2rem;
+            border-bottom-right-radius: 2rem;
+            box-shadow: 2px 0 18px 0 rgba(31, 38, 135, 0.10);
+            margin: 0;
         }
-        .sidebar div {
-            font-weight: bold;
-            margin-bottom: 25px;
-            font-size: 1.2rem;
+        .profile-section {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-bottom: 2.5rem;
         }
-        .sidebar a {
-            display: block;
-            margin: 15px 0;
-            text-decoration: none;
-            color: #b2dfdb;
-            padding: 12px 18px;
-            border-radius: 10px;
-            transition: all 0.3s ease;
+        .avatar {
+            width: 72px;
+            height: 72px;
+            border-radius: 50%;
+            border: 3px solid #fff;
+            box-shadow: 0 4px 16px rgba(0,0,0,0.10);
+            object-fit: cover;
+            margin-bottom: 0.7rem;
         }
-        .sidebar a:hover {
-            background-color: #26a69a;
+        .profile-name {
             color: #fff;
+            font-weight: 600;
+            font-size: 1.1rem;
+            letter-spacing: 0.5px;
+        }
+        .profile-role {
+            color: #b2dfdb;
+            font-size: 0.95rem;
+        }
+        .nav-section {
+            width: 100%;
+        }
+        .sidebar .nav-link {
+            color: #e0f7fa;
+            border-radius: 10px;
+            margin-bottom: 10px;
+            font-size: 1.1rem;
+            font-weight: 500;
+            transition: background 0.3s, color 0.3s, transform 0.2s;
+            padding: 0.75rem 1.2rem;
+            display: flex;
+            align-items: center;
+            gap: 0.7rem;
+        }
+        .sidebar .nav-link.active, .sidebar .nav-link:hover {
+            background: rgba(38,166,154,0.85);
+            color: #fff;
+            transform: translateX(6px) scale(1.04);
+            box-shadow: 0 2px 8px rgba(38,166,154,0.10);
         }
         .main-content {
-            flex: 1;
-            padding: 25px;
-            background: #ffffff;
-            border-top-left-radius: 20px;
-            border-bottom-left-radius: 20px;
-            box-shadow: inset 0 0 15px rgba(0,0,0,0.05);
+            flex: 1 1 0%;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            align-items: stretch;
+            padding: 2.5rem 2.5vw 2.5rem 2.5vw;
+            min-width: 0;
+            min-height: 0;
         }
         iframe {
             width: 100%;
             height: 100%;
+            min-height: 600px;
             border: none;
-            border-radius: 12px;
-            box-shadow: 0 0 12px rgba(0,0,0,0.1);
+            border-radius: 0;
+            background: transparent;
+            flex: 1 1 0%;
+        }
+        .footer {
+            background: rgba(0,0,0,0.10);
+            color: #fff;
+            padding: 1.1rem 0 0.7rem 0;
+            text-align: center;
+            font-size: 1.1rem;
+            border-top: 1px solid rgba(255,255,255,0.10);
+            margin-top: 0;
+        }
+        .footer .social-icons a {
+            color: #fff;
+            margin: 0 0.5rem;
+            font-size: 1.3rem;
+            transition: color 0.2s;
+        }
+        .footer .social-icons a:hover {
+            color: #26a69a;
+        }
+        @media (max-width: 991.98px) {
+            .dashboard-row {
+                flex-direction: column;
+                height: auto;
+                min-height: 0;
+            }
+            .sidebar {
+                width: 100vw;
+                min-width: 0;
+                max-width: 100vw;
+                border-radius: 0 0 2rem 2rem;
+                flex-direction: row;
+                justify-content: center;
+                align-items: flex-start;
+                padding: 1.2rem 0.5rem;
+                box-shadow: none;
+            }
+            .main-content {
+                padding: 1.2rem 1vw 1.2rem 1vw;
+            }
+            .content-card, iframe {
+                border-radius: 1.2rem;
+            }
+            .profile-section {
+                display: none;
+            }
         }
     </style>
 </head>
 <body>
-
-    <div class="header">
-        👤 User Management Portal by Keshav Khandelwal
+    <div class="header glass mb-0">
+        <i class="bi bi-person-circle me-2"></i> User Management Portal by Keshav Khandelwal
     </div>
-
-    <div class="container">
-        <div class="sidebar">
-            <div>📂 Navigation</div>
-                   <a href="user-list.php" target="contentFrame">📋 View Users</a>
-                   <a href="add-user.php" target="contentFrame">➕ Add User</a>
-                   <a href="view-user.php" target="contentFrame">👁️ View User Detail</a>
-        </div>
-        <div class="main-content">
+    <div class="dashboard-row">
+        <nav class="sidebar glass">
+            <div class="profile-section">
+                <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Avatar" class="avatar">
+                <div class="profile-name">Keshav Khandelwal</div>
+                <div class="profile-role">Admin</div>
+            </div>
+            <div class="nav-section w-100">
+                <a href="user-list.php" target="contentFrame" class="nav-link active"><i class="bi bi-card-list"></i>View Users</a>
+                <a href="add-user.php" target="contentFrame" class="nav-link"><i class="bi bi-person-plus"></i>Add User</a>
+            </div>
+        </nav>
+        <main class="main-content">
             <iframe name="contentFrame" src="user-list.php"></iframe>
+        </main>
+    </div>
+    <div class="footer glass mt-4">
+        <div class="mb-2">
+            <span class="me-2"><i class="bi bi-lightning-charge-fill"></i> Powered by HTML, Bootstrap 5, PHP & jQuery – 2025</span>
+        </div>
+        <div class="social-icons">
+            <a href="#" title="Twitter"><i class="bi bi-twitter"></i></a>
+            <a href="#" title="GitHub"><i class="bi bi-github"></i></a>
+            <a href="#" title="LinkedIn"><i class="bi bi-linkedin"></i></a>
         </div>
     </div>
-
-    <div class="footer">
-        🚀 Powered by HTML, CSS, PHP & jQuery – 2025
-    </div>
-
+    <!-- Bootstrap JS Bundle -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
     <script>
         // Optional: Handle edit/view buttons if needed
         window.addEventListener("message", function(event) {
@@ -99,7 +207,15 @@
                 document.querySelector("iframe[name='contentFrame']").src = event.data.url;
             }
         });
+        // Highlight active nav-link
+        document.querySelectorAll('.sidebar .nav-link').forEach(function(link) {
+            link.addEventListener('click', function() {
+                document.querySelectorAll('.sidebar .nav-link').forEach(function(l) {
+                    l.classList.remove('active');
+                });
+                this.classList.add('active');
+            });
+        });
     </script>
-
 </body>
 </html>

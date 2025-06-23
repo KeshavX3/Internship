@@ -17,6 +17,12 @@ if (!empty($_FILES['intro_video']['name'])) {
     $intro_video = time() . "_" . $_FILES['intro_video']['name'];
     move_uploaded_file($_FILES['intro_video']['tmp_name'], "uploads/" . $intro_video);
 }
+// Handle image (optional)
+$image = "";
+if (!empty($_FILES['image']['name'])) {
+    $image = $_FILES['image']['name'];
+    move_uploaded_file($_FILES['image']['tmp_name'], "uploads/" . $image);
+}
 
 $query = "UPDATE users SET 
     profile_title='$profile_title', 
@@ -31,13 +37,15 @@ $query = "UPDATE users SET
 if (!empty($intro_video)) {
     $query .= ", intro_video='$intro_video'";
 }
+if (!empty($image)) {
+    $query .= ", image='$image'";
+}
 
 $query .= " WHERE id=$id";
 
 if ($conn->query($query)) {
-    header("Location: user-list.php");
-    exit;
-    
+    header("Location: /index.html");
+    exit();
 } else {
     echo "Error: " . $conn->error;
 }
