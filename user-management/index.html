@@ -216,6 +216,18 @@
                 this.classList.add('active');
             });
         });
+        document.addEventListener("DOMContentLoaded", function () {
+    const images = document.querySelectorAll('.profile-pic');
+
+    images.forEach(img => {
+        // If image fails to load, replace it with fallback
+        img.onerror = function () {
+            this.onerror = null; // prevent infinite loop
+            this.src = this.getAttribute('data-fallback');
+        };
+    });
+});
+        
     </script>
 </body>
 </html>

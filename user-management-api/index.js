@@ -1,20 +1,19 @@
-// index.js
 const express = require('express');
 const cors = require('cors');
 const bodyParser = require('body-parser');
-const usersRoutes = require('./routes/users');
+require('dotenv').config();
+
+const uploadRoute = require('./routes/upload');
+const usersRoute = require('./routes/users'); 
 
 const app = express();
-const PORT = 3000;
-
 app.use(cors());
 app.use(bodyParser.json());
-app.use('/api/users', usersRoutes);
 
-app.get('/', (req, res) => {
-  res.send('User Management API is running!');
-});
+// Mount your routes
+app.use('/api/upload', uploadRoute);      // Upload
+app.use('/api/users', usersRoute);        // Users CRUD
 
-app.listen(PORT, () => {
-  console.log(`🚀 Server is running on http://localhost:${PORT}`);
+app.listen(3000, () => {
+  console.log('🚀 User Management API running on port 3000');
 });

@@ -65,9 +65,15 @@
         img.thumb {
             width: 56px;
             height: 56px;
+            min-width: 56px;
+            min-height: 56px;
             border-radius: 50%;
             object-fit: cover;
-            box-shadow: 0 0 6px rgba(0,0,0,0.13);
+            box-shadow: 0 0 6px rgba(0, 0, 0, 0.13);
+            transition: transform 0.2s ease;
+            background-color: #f1f1f1; /* subtle background to avoid flicker */
+}
+
         }
         .color-box {
             width: 32px;
@@ -154,11 +160,15 @@
                     echo "<tr>";
                     echo "<td>{$row['id']}</td>";
                     echo "<td>";
-                    if (!empty($row['image']) && file_exists('uploads/' . $row['image'])) {
-                        echo "<img src='uploads/{$row['image']}' alt='img' class='thumb'>";
+                    if (!empty($row['image'])) {
+                        $optimizedImage = str_replace('/upload/', '/upload/w_80,h_80,c_fill,q_auto,f_auto/', $row['image']);
+                        echo "<img src='{$optimizedImage}' alt='profile' class='thumb profile-pic' data-fallback='https://via.placeholder.com/50'>";
                     } else {
                         echo "<img src='https://via.placeholder.com/50' alt='img' class='thumb'>";
                     }
+                    
+                    
+                    
                     echo "</td>";
                     echo "<td>{$row['name']}</td>";
                     echo "<td><a href='mailto:{$row['email']}'>{$row['email']}</a></td>";

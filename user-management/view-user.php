@@ -113,11 +113,22 @@ $user = $result->fetch_assoc();
         <div class="card shadow-lg border-0 rounded-4 p-4 mb-4" style="background:#fff;">
           <div class="row g-4 align-items-center">
             <div class="col-md-4 text-center">
-              <?php if (!empty($user['image'])): ?>
-                <img src="uploads/<?= $user['image'] ?>" class="rounded-circle shadow mb-3" style="width:130px;height:130px;object-fit:cover;border:4px solid #e0f7fa;">
-              <?php else: ?>
-                <img src="https://via.placeholder.com/130" class="rounded-circle shadow mb-3" style="width:130px;height:130px;object-fit:cover;border:4px solid #e0f7fa;">
-              <?php endif; ?>
+            <?php
+$image = $user['image'];
+if (!empty($image)) {
+    // If it's a Cloudinary URL, use it directly with optimization
+    if (str_contains($image, 'res.cloudinary.com')) {
+        $optimizedImage = str_replace('/upload/', '/upload/w_130,h_130,c_fill,q_auto,f_auto/', $image);
+        echo "<img src='{$optimizedImage}' class='rounded-circle shadow mb-3' style='width:130px;height:130px;object-fit:cover;border:4px solid #e0f7fa;'>";
+    } else {
+        // Otherwise treat as local image (for older records)
+        echo "<img src='uploads/{$image}' class='rounded-circle shadow mb-3' style='width:130px;height:130px;object-fit:cover;border:4px solid #e0f7fa;'>";
+    }
+} else {
+    echo "<img src='https://via.placeholder.com/130' class='rounded-circle shadow mb-3' style='width:130px;height:130px;object-fit:cover;border:4px solid #e0f7fa;'>";
+}
+?>
+
               <h3 class="fw-bold text-primary mt-2 mb-0"><i class="bi bi-person-circle me-2"></i><?= htmlspecialchars($user['profile_title']) ?></h3>
             </div>
             <div class="col-md-8">
